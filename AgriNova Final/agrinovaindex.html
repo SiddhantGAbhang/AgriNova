@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrinova - Smart Farming</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+<script>
+    // Dynamic weather.com search based on user's location
+    window.addEventListener("DOMContentLoaded", () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                const { latitude, longitude } = position.coords;
+                const weatherLink = `https://weather.com/weather/today/l/${latitude},${longitude}`;
+                const weatherAnchor = document.getElementById("weather-link");
+                if (weatherAnchor) {
+                    weatherAnchor.href = weatherLink;
+                    weatherAnchor.textContent = "Weather in Your Area";
+                }
+            }, () => {
+                const weatherAnchor = document.getElementById("weather-link");
+                if (weatherAnchor) weatherAnchor.textContent = "Weather.com (Location Blocked)";
+            });
+        } else {
+            const weatherAnchor = document.getElementById("weather-link");
+            if (weatherAnchor) weatherAnchor.textContent = "Weather.com (No Geolocation)";
+        }
+    });
+</script>
+</head>
+<body>
+    <header>
+        <h1>Agrinova - Smart Farming</h1>
+        <button id="theme-toggle">🌙</button>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#smart-irrigation">Smart Irrigation</a></li>
+                <li><a href="#temperature-monitoring">Temperature Monitoring</a></li>
+                <li><a href="#disease-detection">Disease Detection</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Revolutionizing Farming with ESP32</h2>
+        <p>Smart solutions for disease detection, irrigation, and monitoring.</p>
+        <a href="#services" class="cta-button">Explore Services</a>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We help farmers with advanced technology to increase efficiency and yield.
+        Learn more about ESP32 on <a href="https://en.wikipedia.org/wiki/ESP32" target="_blank">Wikipedia</a>.</p>
+    </section>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-container">
+            <div class="service-box" id="smart-irrigation">
+                <h3>🌿 <a href="https://en.wikipedia.org/wiki/Irrigation" target="_blank">Smart Irrigation</a></h3>
+                <p>Automated irrigation system optimizing water usage with real-time sensor data.</p>
+            </div>
+            <div class="service-box">
+                <h3>🌡️ <a href="https://www.weather.com/" target="_blank">Temperature Monitoring</a></h3>
+                <p>Live weather & soil temperature tracking for crops. Stay updated with forecasts.</p>
+            </div>
+            <div class="service-box">
+                <h3>🦠 Disease Detection (ESP32)</h3>
+                <div id="sensor-readings">
+                    <p>🌡️ Temperature: <span id="temperature-data">--</span></p>
+                    <p>💧 Soil Moisture: <span id="moisture-data">--</span></p>
+                    <p>🔌 Water Pump Status: <span id="pump-data">--</span></p>
+                    <p>🩺 ESP32 Health: <span id="esp32-health-status">--</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="temperature-monitoring">
+        <h2>🌡️ Live Temperature Monitoring</h2>
+        <p>Stay informed with up-to-the-minute air and soil temperature readings. Powered by real-time ESP32 sensors.</p>
+        <ul style="list-style: none; padding-left: 0;">
+            <li>📍 <strong>Location:</strong> Pune, India</li>
+            <li>🌤️ <strong>Ambient Temp:</strong> <span id="ambient-temp">--</span></li>
+            <li>🌱 <strong>Soil Temp:</strong> <span id="soil-temp">--</span></li>
+        </ul>
+        <p>View your city's weather: <a id="weather-link" href="https://weather.com" target="_blank">Loading...</a></p>
+    </section>
+
+    <section id="disease-detection">
+        <h2>Disease Detection Using ESP32</h2>
+        <p>Utilizes sensors and AI to detect early symptoms of crop diseases for timely action. 
+           For research papers, visit <a href="https://scholar.google.com/scholar?q=esp32+plant+disease+detection" target="_blank">Google Scholar</a>.</p>
+        <button onclick="fetchESP32Status()">Check ESP32 Status</button>
+        <p>Status: <span id="esp32-status">🔘 Not Checked</span></p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+    <input type="text" id="name" name="name" placeholder="Your Name" required><br><br>
+    <input type="email" id="email" name="email" placeholder="Your Email" required><br><br>
+    <textarea id="message" name="message" placeholder="Your Message" required></textarea><br><br>
+    <button type="submit">Send Message</button>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+    (function() {
+        emailjs.init("ksq7KhcjlOB1ImOn"); // Replace with your EmailJS user ID
+    })();
+
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        emailjs.sendForm("service_dr5x84", "template_9t0i23", this)
+            .then(function() {
+                alert("✅ Message sent successfully!");
+                document.getElementById("contact-form").reset();
+            }, function(error) {
+                alert("❌ Failed to send message. Please try again later.");
+                console.error(error);
+            });
+    });
+</script>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Agrinova. Smart Farming for a Better Future. | <a href="https://www.google.co.in/" target="_blank">Our GitHub</a></p>
+    </footer>
+
+    <script>
+        function simulateTemperatureMonitoring() {
+            document.getElementById("ambient-temp").innerText = `${(25 + Math.random() * 5).toFixed(1)} °C`;
+            document.getElementById("soil-temp").innerText = `${(22 + Math.random() * 3).toFixed(1)} °C`;
+        }
+        setInterval(simulateTemperatureMonitoring, 3000);
+    </script>
+</body>
+</html>
