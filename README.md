@@ -29,7 +29,7 @@ Styling: Responsive design with animations & dark mode
 ⚙️ Installation & Usage
 
 Clone the repository:
-git clone https://github.com/your-username/agrinova.git
+git clone https://github.com/SiddhantGAbhang/agrinova.git
 cd agrinova
 
 Open the project in your browser:
